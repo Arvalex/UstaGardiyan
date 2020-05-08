@@ -1,0 +1,12 @@
+name: UstaGardiyan
+main: me.Speretta.UstaGardiyan.Main
+version: 2.7
+author: Speretta
+commands:
+  ug:
+    description: Havali yasaklama
+    usage: /<command> [<text>] [<text>]
+  ugc:
+    description: Havali yasaklama config ayarlari
+    usage: /<command> [<text>] [<text>]
+  
