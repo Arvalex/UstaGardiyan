@@ -7,3 +7,5 @@ I coded it according to my language, Turkish. Some files and variables in the pr
 But it's very easy to understand(maybe just for me :D).
 
 ![Gif](https://thumbs.gfycat.com/FancySleepyCopperhead-size_restricted.gif)
+
+Extra: When the player kicks the game an explosion spawned, of course it is only for cosmetics.
