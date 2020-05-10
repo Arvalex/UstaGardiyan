@@ -3,16 +3,17 @@ package me.Speretta.UstaGardiyan;
 import java.util.ArrayList;
 import java.util.UUID;
 import net.minecraft.server.v1_15_R1.EntityGuardian;
-import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.EntitySquid;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftGuardian;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftSquid;
 import org.bukkit.entity.Guardian;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Squid;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -27,19 +28,20 @@ public class Gardiyan
     } 
     final ArrayList<EntityGuardian> _gardiyanlar = new ArrayList<EntityGuardian>();
     final ArrayList<Location> daire = getCircle(p.getLocation().add(0.0D, 4.0D, 0.0D), 4.0D, 120);
-    final EntityPlayer ep = ((CraftPlayer)p).getHandle();
+    final Squid squid = (Squid)p.getWorld().spawn(p.getLocation(), Squid.class);
+    final EntitySquid esquid = (EntitySquid)((CraftSquid)squid).getHandle();
+    esquid.setNoGravity(true);
+    esquid.setNoAI(true);
+    esquid.setInvisible(true);
+    esquid.setInvulnerable(true);
+    esquid.setSilent(true);
     for (int i = 0; i < 4; i++) {
       Guardian s = (Guardian)p.getWorld().spawn((Location)daire.get(i * 30), Guardian.class);
-      s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(999.0D);
-      s.setHealth(999.0D);
       EntityGuardian entity = (EntityGuardian)((CraftGuardian)s).getHandle();
       entity.setSilent(true);
-      try {
-        entity.setGoalTarget(ep, EntityTargetEvent.TargetReason.TARGET_ATTACKED_NEARBY_ENTITY, true);
-      } catch (Exception exception) {}
-
-      
+      entity.setGoalTarget(esquid, EntityTargetEvent.TargetReason.TARGET_ATTACKED_NEARBY_ENTITY, true);
       entity.setNoGravity(true);
+      entity.setInvulnerable(true);
       _gardiyanlar.add(entity);
     } 
 
@@ -54,7 +56,7 @@ public class Gardiyan
                   for (int j = 0; j < 4; j++) {
                     _gardiyanlar.get(j).setLocation(daire.get(i[j]).getX(), daire.get(i[j]).getY(), daire.get(i[j]).getZ(), _gardiyanlar.get(j).getBukkitYaw(), _gardiyanlar.get(j).pitch);
                     
-                    _gardiyanlar.get(j).setGoalTarget(ep, EntityTargetEvent.TargetReason.TARGET_ATTACKED_NEARBY_ENTITY, true);
+                    _gardiyanlar.get(j).setGoalTarget(esquid, EntityTargetEvent.TargetReason.TARGET_ATTACKED_NEARBY_ENTITY, true);
                     
                     i[j] = i[j] + 2;
                     if (i[j] == 120) {
@@ -93,6 +95,7 @@ public class Gardiyan
                         for (EntityGuardian u : _gardiyanlar) {
                           u.setLocation(0.0D, -100.0D, 0.0D, 0.0F, 0.0F);
                         }
+                        esquid.setLocation(0, -100, 0, 0, 0);
                         Gardiyan.yasaklaniyor.remove(p.getUniqueId());
                         cancel();
                       } 

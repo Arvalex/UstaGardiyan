@@ -1,6 +1,6 @@
 name: UstaGardiyan
 main: me.Speretta.UstaGardiyan.Main
-version: 2.7
+version: 2.8
 author: Speretta
 commands:
   ug:
