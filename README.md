@@ -14,3 +14,9 @@ After typing the command, the player is teleported to the spawn.
 
 Guardians mob turn around the player. 
 It is targeted by laser and kicked the game with a tnt explosion.
+
+![](https://thumbs.gfycat.com/FancySleepyCopperhead-size_restricted.gif)
+
+### Information
+
+(sn,dk,sa,gün) is mean (sec,min,hour,day)
