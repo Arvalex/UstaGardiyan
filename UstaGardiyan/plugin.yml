@@ -1,12 +1,14 @@
 name: UstaGardiyan
 main: me.Speretta.UstaGardiyan.Main
-version: 2.7
+version: 2.9d
 author: Speretta
 commands:
   ug:
     description: Havali yasaklama
+    permission: UstaGardiyan.komut
     usage: /<command> [<text>] [<text>]
   ugc:
     description: Havali yasaklama config ayarlari
+    permission: UstaGardiyan.komut
     usage: /<command> [<text>] [<text>]
   

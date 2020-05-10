@@ -18,8 +18,9 @@ public class Olay
   @EventHandler
   public void onJoin(PlayerLoginEvent e) {
     if (Veri.ymlCek().isSet(e.getPlayer().getName())) {
-      if (Veri.ymlCek().getDouble(String.valueOf(e.getPlayer().getName()) + ".sure") - System.currentTimeMillis() <= 0.0D || e.getPlayer().hasPermission("UstatGardiyan.yetkili")) {
+      if (Veri.ymlCek().getDouble(String.valueOf(e.getPlayer().getName()) + ".sure") - System.currentTimeMillis() <= 0.0D || e.getPlayer().hasPermission("UstaGardiyan.yetkili")) {
         Veri.ymlCek().set(e.getPlayer().getName(), null);
+        Gardiyan.yasaklaniyor.remove(e.getPlayer().getUniqueId());
         Veri.ymlKaydet();
       } else {
         String sebep = Veri.ymlCek().getString(String.valueOf(e.getPlayer().getName()) + ".sebep");

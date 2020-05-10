@@ -3,6 +3,7 @@ package me.Speretta.UstaGardiyan;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -16,7 +17,7 @@ public class Komut
   implements CommandExecutor
 {
   static Main plugin;
-  private static String[] yazilar = new String[16];
+  private static String[] yazilar = new String[17];
   public static List<?> yasakmesaj = new ArrayList<>();
   private final File configfile;
   
@@ -42,6 +43,7 @@ public class Komut
     yazilar[13] = Main.getInstance().getConfig().getString("yazilar.ugc-reload");
     yazilar[14] = Main.getInstance().getConfig().getString("yazilar.ugc-restart");
     yazilar[15] = Main.getInstance().getConfig().getString("yazilar.ugc-plugin");
+    yazilar[16] = Main.getInstance().getConfig().getString("yazilar.ugc-spawn");
     yasakmesaj = Main.getInstance().getConfig().getList("yazilar.yasak-mesaj");
   }
 
@@ -57,17 +59,21 @@ public class Komut
             yazilariAta();
             sender.sendMessage(yazilar[14]);
             return true;
-          }  if (args[0].equalsIgnoreCase("reload")) {
+          }  else if (args[0].equalsIgnoreCase("reload")) {
             Main.getInstance().reloadConfig();
             yazilariAta();
             sender.sendMessage(yazilar[13]);
             return true;
-          }  if (args[0].equalsIgnoreCase("plugin")) {
+          }  else if (args[0].equalsIgnoreCase("plugin")) {
             Main.getInstance().getPluginLoader().disablePlugin(plugin);
             Main.getInstance().getPluginLoader().enablePlugin(plugin);
             sender.sendMessage(yazilar[15]);
             return true;
-          } 
+          }  else if (args[0].equalsIgnoreCase("spawn")&&sender instanceof Player) {
+            Main.getInstance().getConfig().set("Location", ((Player)sender).getLocation());   
+              sender.sendMessage(yazilar[16].replace("{0}",String.valueOf(((Player)sender).getLocation())));
+              return true;
+            } 
         } else {
           sender.sendMessage(yazilar[12]);
           return true;
@@ -101,7 +107,7 @@ public class Komut
         }  if (args.length > 1) {
           if (args[1].endsWith("sn") || args[1].endsWith("dk") || args[1].endsWith("sa") || args[1].endsWith("gün")) {
             suretipi = args[1].substring(args[1].length() - 2);
-            if (args[1].endsWith("g�n")) {
+            if (args[1].endsWith("gün")) {
               suretipi = args[1].substring(args[1].length() - 3);
             }
             
@@ -166,8 +172,10 @@ public class Komut
                 Veri.ymlCek().set(String.valueOf(p.getName()) + ".sure", Double.valueOf(sure + suan.doubleValue()));
                 Veri.ymlCek().set(String.valueOf(p.getName()) + ".sebep", sebep);
                 Veri.ymlKaydet();
-              } 
-              Gardiyan.gardiyanCagir(p, Double.valueOf(sure), sebep);
+              }
+              Gardiyan.yasakla(p, Double.valueOf(sure), sebep);
+              sender.sendMessage(yazilar[7].replace("{0}", args[0]));
+              
               
               return true;
             }  if (Veri.ymlCek().isSet(p.getName())) {

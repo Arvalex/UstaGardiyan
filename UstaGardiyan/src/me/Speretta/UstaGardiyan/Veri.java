@@ -21,7 +21,7 @@ public class Veri
     if (!mainfile.exists())
       try { mainfile.createNewFile(); }
       catch (IOException e)
-      { Bukkit.getServer().getConsoleSender().sendMessage("[UstatGardiyan] Config olu�turulurken hata olu�tu!"); }
+      { Bukkit.getServer().getConsoleSender().sendMessage("[UstatGardiyan] Config oluşturulurken hata oluştu!"); }
        
     maincfg = YamlConfiguration.loadConfiguration(mainfile);
   }
@@ -33,7 +33,7 @@ public class Veri
     try {
       maincfg.save(mainfile.getPath());
     } catch (IOException e) {
-      Bukkit.getServer().getConsoleSender().sendMessage("[UstatGardiyan] Config kaydedilirken hata olu�tu!");
+      Bukkit.getServer().getConsoleSender().sendMessage("[UstatGardiyan] Config kaydedilirken hata oluştu!");
     } 
   }
 }
