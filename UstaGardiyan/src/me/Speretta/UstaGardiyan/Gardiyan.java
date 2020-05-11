@@ -27,6 +27,7 @@ public class Gardiyan
   public static HashMap<UUID, String[]> yasakbilgi = new HashMap<UUID, String[]>();
   
   public static void yasakla(final Player p, final Double sure, final String sebep) {
+	  
 	  Bukkit.dispatchCommand(p, "spawn");
 	  if(!yasaklaniyor.contains(p.getUniqueId())) {
 		  yasaklaniyor.add(p.getUniqueId());
